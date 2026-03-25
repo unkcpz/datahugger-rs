@@ -133,7 +133,13 @@ mod tests {
 
         let xp = "data.0.name";
         let err = json_extract::<String>(&value, xp).unwrap_err();
-        assert!(err.to_string().contains("out of bounds"));
+        assert!(
+            err.message
+                .to_string()
+                .contains("path 'data.0.name' not found"),
+            "{}",
+            err.message
+        );
     }
 
     #[test]
@@ -143,8 +149,9 @@ mod tests {
         });
 
         let xp = "data.0";
-        let err = json_extract::<String>(&value, xp).unwrap_err();
-        assert!(err.to_string().contains("cannot descend"));
+
+        let res = json_extract::<String>(&value, xp).unwrap_err();
+        assert!(res.message.to_string().contains("path 'data.0' not found"));
     }
 
     #[test]

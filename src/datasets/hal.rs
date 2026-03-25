@@ -8,12 +8,12 @@ use url::Url;
 use reqwest::{Client, StatusCode};
 use std::{any::Any, str::FromStr};
 
+use crate::helper::json_extract_opt;
 use crate::{
     json_extract,
     repo::{Endpoint, FileMeta, RepoError},
     DatasetBackend, DirMeta, Entry,
 };
-use crate::helper::json_extract_opt;
 
 // https://hal.science/
 // API root url at https://hal.science/<id>?
@@ -100,6 +100,11 @@ impl DatasetBackend for HalScience {
             })?;
 
         let mut entries = Vec::with_capacity(files.len());
+
+        // if not files are given, return empty vec
+        if files.first().and_then(|d| d.get("files_s")).is_none() {
+            return Ok(entries);
+        }
         for (idx, filej) in files.iter().enumerate() {
             let endpoint = Endpoint {
                 parent_url: dir.api_url(),
@@ -119,22 +124,25 @@ impl DatasetBackend for HalScience {
                 message: format!("invalid download url '{download_url}'"),
             })?;
 
-            let creation_date = json_extract(filej, "producedDate_tdate").or_raise(
-                || RepoError {
-                    message: "fail to extracting 'producedDate_tdate' as String from json".to_string(),
-                }
-            )?;
-            let last_modification_date: Option<String> = json_extract_opt(filej, "modifiedDate_tdate").or_raise(|| RepoError {
-                message: "fail to extracting 'modifiedDate_tdate' as String from json".to_string(),
-            })?;
-            let version: Option<i64> = json_extract_opt(filej, "version_i").or_raise(|| RepoError {
-                message: "fail to extracting 'version_i' as String from json".to_string(),
-            })?;
+            let creation_date =
+                json_extract(filej, "producedDate_tdate").or_raise(|| RepoError {
+                    message: "fail to extracting 'producedDate_tdate' as String from json"
+                        .to_string(),
+                })?;
+            let last_modification_date: Option<String> =
+                json_extract_opt(filej, "modifiedDate_tdate").or_raise(|| RepoError {
+                    message: "fail to extracting 'modifiedDate_tdate' as String from json"
+                        .to_string(),
+                })?;
+            let version: Option<i64> =
+                json_extract_opt(filej, "version_i").or_raise(|| RepoError {
+                    message: "fail to extracting 'version_i' as String from json".to_string(),
+                })?;
 
             let file = FileMeta::new(
                 Some(filename.to_string()),
                 None,
-                dir.join(&format!("{}", filename.to_string())),
+                dir.join(filename),
                 endpoint,
                 download_url,
                 None,
