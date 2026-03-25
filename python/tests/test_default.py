@@ -8,6 +8,7 @@ from datahugger import (
     DOIResolver,
     DataverseJsonSrcDataset,
     ZenodoJsonSrcDataset,
+    HalJsonSrcDataset,
 )
 import requests
 
@@ -105,6 +106,23 @@ def test_crawl_blocking():
         print(i)
 
 
+# "https://mnhn.hal.science/mnhn-03908194v1"
+def test_crawl_blocking_hal():
+    ds = resolve(
+        # "https://hal.science/hal-03933332"
+        # "https://hal.science/hal-04707203"
+        # "https://media.hal.science/medihal-00470736"
+        # "https://hal.inrae.fr/hal-02661316v1"
+        # "https://media.hal.science/medihal-00470850v1"
+        "https://hal.science/hal-04708506v1"
+    )
+    # for i in ds.crawl():
+    #    print(i)
+
+    for i in ds.crawl_file():
+        print(i)
+
+
 def test_dataverse_from_json():
     try:
         response = requests.get(
@@ -143,6 +161,28 @@ def test_zenodo_from_json():
     ds = ZenodoJsonSrcDataset(
         "19109278",
         zenodo,
+    )
+
+    for i in ds.crawl_file():
+        print(i)
+
+
+def test_hal_from_json():
+    try:
+        response = requests.get(
+            "https://api.archives-ouvertes.fr/search/?q=halId_s:hal-02661316&wt=json&fl=halId_s,fileMain_s,files_s,fileType_s,modifiedDate_tdate,producedDate_tdate,version_i",
+            timeout=60,
+        )
+        response.raise_for_status()
+        hal = response.text
+
+    except Exception as e:
+        print("fetching JSON failed")
+        raise e
+
+    ds = HalJsonSrcDataset(
+        "hal-02661316",
+        hal,
     )
 
     for i in ds.crawl_file():
