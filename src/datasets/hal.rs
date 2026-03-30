@@ -8,9 +8,8 @@ use url::Url;
 use reqwest::{Client, StatusCode};
 use std::{any::Any, str::FromStr};
 
-use crate::helper::json_extract_opt;
+use crate::helper::{json_extract, json_extract_opt};
 use crate::{
-    json_extract,
     repo::{Endpoint, FileMeta, RepoError},
     DatasetBackend, DirMeta, Entry,
 };
@@ -125,7 +124,7 @@ impl DatasetBackend for HalScience {
         url.query_pairs_mut()
             .append_pair("q", &format!("halId_s:{}", self.id))
             .append_pair("wt", "json")
-            .append_pair("fl", "halId_s,fileMain_s,files_s,fileType_s,producedDate_tdate,modifiedDate_tdate,version_i");
+            .append_pair("fl", "halId_s,fileMain_s,files_s,fileType_s,producedDate_tdate,modifiedDate_tdate,version_i"); // https://api.archives-ouvertes.fr/docs/search/?schema=fields#fields
 
         url
     }

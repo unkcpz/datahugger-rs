@@ -5,6 +5,7 @@ use serde_json::Value;
 use crate::error::ErrorStatus;
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct JsonExtractError {
     pub message: String,
     pub status: ErrorStatus,
@@ -37,9 +38,10 @@ impl std::error::Error for JsonExtractError {}
 ///
 /// # Examples
 ///
+/// ```ignore
 /// ```rust
 /// use serde_json::json;
-/// use datahugger::json_extract;
+///
 ///
 /// let value = json!({
 ///     "user": {
@@ -55,7 +57,7 @@ impl std::error::Error for JsonExtractError {}
 /// # Type Parameters
 ///
 /// * `T` - The type to deserialize the final JSON value into.
-pub fn json_extract<T>(value: &Value, path: &str) -> Result<T, JsonExtractError>
+pub(crate) fn json_extract<T>(value: &Value, path: &str) -> Result<T, JsonExtractError>
 where
     T: DeserializeOwned,
 {
