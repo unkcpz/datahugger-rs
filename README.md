@@ -14,16 +14,16 @@ Support data repositories:
 
 | Source             | Website                         | Notes | Examples |
 |--------------------|---------------------------------|-------| ---------|
-| Dataverse          | [dataverse.org](https://dataverse.org/) | [Supported Dataverse repositories](https://github.com/EOSC-Data-Commons/datahugger-ng/blob/master/dataverse-repo-list.md) | [example](#repository-without-limitations) |
-| OSF                | [osf.io](https://osf.io/)       | — | [example](#repository-without-limitations) |
+| Dataverse          | [dataverse.org](https://dataverse.org/) | [Supported Dataverse repositories](https://github.com/EOSC-Data-Commons/datahugger-ng/blob/master/dataverse-repo-list.md) | [example](#datasets-without-limitations) |
+| OSF                | [osf.io](https://osf.io/)       | — | [example](#datasets-without-limitations) |
 | GitHub ✨(new)      | [github.com](https://github.com/) | Use a GitHub API token to get a higher rate limit | [example](#github---avoid-hitting-api-rate-limits-using-a-personal-access-token-pat) |
-| Hugging Face ✨(new)| [huggingface.co](https://huggingface.co/) | — | [example](#repository-without-limitations) |
-| arXiv              | [arxiv.org](https://arxiv.org/) | — | [example](#repository-without-limitations) |
-| Hal                | [hal.science](https://hal.science/) | — | [example](#repository-without-limitations) |
-| Zenodo             | [zenodo.org](https://zenodo.org/) | — | [example](#repository-without-limitations) |
-| MaterialsCloud Archive| [archive.materialscloud.org](https://archive.materialscloud.org/) | — | [example](#repository-without-limitations) |
+| Hugging Face ✨(new)| [huggingface.co](https://huggingface.co/) | — | [example](#datasets-without-limitations) |
+| arXiv              | [arxiv.org](https://arxiv.org/) | — | [example](#datasets-without-limitations) |
+| Hal                | [hal.science](https://hal.science/) | — | [example](#datasets-without-limitations) |
+| Zenodo             | [zenodo.org](https://zenodo.org/) | — | [example](#datasets-without-limitations) |
+| MaterialsCloud Archive| [archive.materialscloud.org](https://archive.materialscloud.org/) | — | [example](#datasets-without-limitations) |
 | Dryad              | [datadryad.org](https://datadryad.org/) | Bearer token required to download data (see [API instructions](https://datadryad.org/api) for obtaining your API key) | [example](#datadryad-api-key-config-and-download) |
-| DataONE            | [dataone.org](https://www.dataone.org/) | [Supported DataONE repositories](https://github.com/EOSC-Data-Commons/datahugger-ng/blob/master/dataone-repo-list.md); requests to its umbrella repositories may be slow | [example](#repository-without-limitations) |
+| DataONE            | [dataone.org](https://www.dataone.org/) | [Supported DataONE repositories](https://github.com/EOSC-Data-Commons/datahugger-ng/blob/master/dataone-repo-list.md); requests to its umbrella repositories may be slow | [example](#datasets-without-limitations) |
 
 
 [Open an issue](https://github.com/EOSC-Data-Commons/datahugger-ng/issues/new/choose) if a data repository you want to use not yet support.
