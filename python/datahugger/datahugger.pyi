@@ -84,6 +84,23 @@ class HalJsonSrcDataset(Dataset):
             RuntimeError
         """
 
+class DabarXmlSrcDataset(Dataset):
+    """
+    A DABAR MODS dataset backend that uses pre-fetched XML content.
+    """
+
+    def __init__(self, id: str, content: str) -> None:
+        """
+        Create a new DabarXmlSrcDataset.
+
+        Args:
+            id: The DABAR dataset ID, e.g., agr:2814
+            content: The XML content as a string
+
+        Raises:
+            RuntimeError
+        """
+
 class Dataset(object):
     def download_with_validation(
         self,
